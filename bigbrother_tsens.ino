@@ -69,7 +69,7 @@ void send_data(void* context) {
   HTTPClient http;
   http.begin(HOST_TRANSMIT);
   http.addHeader("Content-Type", "text/json");
-  int httpCode = http.POST(create_response(JOB_CLEAR, CURRENT_HUMIDITY));
+  int httpCode = http.POST(create_response(JOB_CLEAR, analogRead(humidityPin)));
   String payload = http.getString();
   http.end();
 }
