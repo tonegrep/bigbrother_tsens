@@ -81,7 +81,7 @@ void respond_ok(String response_type, String response){
 }
 
 String create_response(int response_code, int data) {
-  const int capacity = JSON_OBJECT_SIZE(4);
+  const int capacity = JSON_OBJECT_SIZE(5);
   StaticJsonDocument<capacity> doc;
   doc["type"] = CONTROLLER_TYPE_SENSOR;
   doc["UUID"] = CONTROLLER_UUID;
