@@ -23,9 +23,7 @@ Timer timer_send_data;
 
 void setup() {
   Serial.begin(115200);
-  pinMode(redPin, OUTPUT);
-  pinMode(greenPin, OUTPUT);
-  pinMode(bluePin, OUTPUT);
+  pinMode(humidityPin, INPUT);
   
   // Connect to WiFi network
   WiFi.begin(SSID, PASSWORD);
@@ -40,8 +38,7 @@ void setup() {
   }
   // Bound functions to requests
   server.on("/", page);
-  server.on("/SET", set_brightness);
-  server.on("/GET", get_brightness);
+  server.on("/GET", get_humidity);
 
   server.begin();
   Serial.println("Server started");
@@ -57,14 +54,14 @@ void loop() {
 void page() {
    String s = "<!DOCTYPE HTML>\r\n<html>\r\n";
    s += "<h3>current humidity is ";
-   s += CURRENT_HUMIDITY;
+   s += analogRead(humidityPin);
    s += "</h3>";
    s += "</html>\n";
   respond_ok("text/html", s);
 }
 
 void get_humidity() {
-  String response = String(CURRENT_HUMIDITY);
+  String response = String(analogRead(humidityPin));
   respond_ok("text/plain", response);
 }
 
